@@ -15,8 +15,8 @@ return [
 
     'failed' => 'These credentials do not match our records.',
     'throttle' => 'Too many login attempts. Please try again in :seconds seconds.',
+    'login_text' => 'Acessar',
+    'register_text' => 'Criar conta',
+    'logout_text' => 'Desconectar',
 
-    'login_text' => 'Login',
-    'register_text' => 'Register',
-    'logout_text' => 'Logout',
 ];

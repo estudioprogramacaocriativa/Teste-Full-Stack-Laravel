@@ -1,0 +1,160 @@
+.border-radius-min {
+    @include border-radius(3px);
+}
+
+.border-radius-full {
+    @include border-radius(100%);
+}
+
+.img-full {
+    width: 100%;
+}
+
+.custom-image {
+    overflow: hidden;
+    position: relative;
+    background: #fff;
+    width: 100%;
+    height: 100%;
+
+    &.--zooming {
+        img {
+            @include transition(.56s ease-in-out);
+        }
+
+        &:hover {
+            img {
+                transform: scale(1.3);
+            }
+        }
+    }
+
+    p {
+        margin-bottom: 0;
+    }
+
+    .flex {
+        @include flex();
+        @include items-align(center);
+        @include justify-content(center);
+    }
+
+    .input-items-group {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+
+        @include transform(translate(-50%, -50%));
+    }
+
+    img {
+        width: 100%;
+        min-width: 100%;
+    }
+
+    &.--auto-width {
+        img {
+            width: auto;
+        }
+    }
+
+    &.image-cover {
+        .cover {
+            position: relative;
+        }
+
+        .thumbnail {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            width: auto;
+            background: #fff;
+            border: 1px solid #ccc;
+
+            &.--auto-width {
+                img {
+                    width: auto;
+                }
+            }
+        }
+    }
+
+    &:not(.--no-overlay) {
+        &:before {
+            content: ' ';
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            position: absolute;
+            visibility: hidden;
+            top: 0;
+            left: 0;
+        }
+    }
+}
+
+.custom-image:hover .inputfile + label,
+.custom-image:hover:before {
+    visibility: visible;
+}
+
+.inputfile {
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+    position: absolute;
+    z-index: -1;
+
+    & + label {
+        font-size: 1.25em;
+        font-weight: 700;
+        color: white;
+        background-color: #0cc2aa;
+        margin: 0;
+        width: 50px;
+        height: 50px;
+        cursor: pointer;
+        visibility: hidden;
+
+        @include flex();
+        @include items-align(center);
+        @include justify-content(center);
+        @include border-radius(100%);
+    }
+
+    &:focus + label,
+    & + label:hover {
+        background-color: #098F7D;
+    }
+
+    &:focus + label svg,
+    & + label:hover svg {
+        color: #fff;
+    }
+
+    &:focus + label,
+    &.has-focus + label {
+        outline: 1px dotted #232228;
+        outline: -webkit-focus-ring-color auto 5px;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .custom-image {
+        .inputfile {
+            & + label {
+                visibility: visible;
+
+                @include border-radius(3px);
+            }
+        }
+
+        .input-items-group {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+
+            @include transform(none);
+        }
+    }
+}

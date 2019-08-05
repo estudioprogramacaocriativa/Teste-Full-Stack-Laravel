@@ -4,12 +4,13 @@ namespace App\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Post;
 
 class PostsController extends Controller
 {
     public function listar()
     {
-        $posts = \App\Post::all();
+        $posts = Post::all();
 
         $collection = collect();
         foreach ($posts as $post) {

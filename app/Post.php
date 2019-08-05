@@ -18,4 +18,9 @@ class Post extends Model
             return false;
         }
     }
+
+    public function author()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

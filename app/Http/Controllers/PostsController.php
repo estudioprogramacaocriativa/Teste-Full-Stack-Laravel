@@ -3,43 +3,51 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Post;
 
 class PostsController extends Controller
 {
-
-    public function __construct()
+    /**
+     * Return a list of posts resources
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function index()
     {
-        $this->middleware('auth');
+        $posts = Post::paginate(10);
+
+        return view('posts.index', compact('posts'));
     }
 
     /**
-     * Display a listing of the resource.
+     * Return a list of posts resources
+     * filtered by status column
      *
-     * @return \Illuminate\Http\Response
+     * @param $status
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function listar()
+    public function filtered($status)
     {
-        $posts = \App\Post::all();
+        sleep(1);
+        $posts = Post::paginate(10);
 
-        return view('posts.index', ['posts' => $posts]);
+        if($status !== 'all'):
+            $posts = Post::where('status', $this->getStatus($status))->paginate(10);
+        endif;
+
+        return response()->json(['data' => $this->getTableBody($posts, $status)]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    public function search($word)
+    {
+        dd($word);
+    }
+
     public function criar()
     {
         return view('posts.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function salvar(Request $request)
     {
         $this->validate($request, [
@@ -64,12 +72,6 @@ class PostsController extends Controller
         return redirect('posts');
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function editar($id)
     {
         $post = \App\Post::find($id);
@@ -77,13 +79,6 @@ class PostsController extends Controller
         return view('posts.edit', ['post' => $post]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function atualizar(Request $request, $id)
     {
         $this->validate($request, [
@@ -110,12 +105,6 @@ class PostsController extends Controller
         return redirect('posts');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function deletar($id)
     {
         $post = \App\Post::find($id);
@@ -125,5 +114,40 @@ class PostsController extends Controller
         \DB::table('tag_post')->where('post_id', '=', $post->id)->delete();
 
         return redirect('posts');
+    }
+
+    /**
+     * Get the HTML list of post resources
+     *
+     * @param $posts
+     * @return string
+     */
+    private function getTableBody($posts, $status = null)
+    {
+        $view = \View::make('posts.partials.table-body', compact('posts', 'status'));
+        $render = (string)$view->render();
+
+        return $render;
+    }
+
+    /**
+     * Get the post status
+     *
+     * @param $status
+     * @return int
+     */
+    private function getStatus($status)
+    {
+        switch($status):
+            case 'published':
+                $value = 1;
+                break;
+            case 'draft':
+            default:
+                $value = 0;
+                break;
+        endswitch;
+
+        return $value;
     }
 }

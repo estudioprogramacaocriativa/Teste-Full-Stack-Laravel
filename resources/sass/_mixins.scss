@@ -1,0 +1,53 @@
+@mixin border-radius($property) {
+    -webkit-border-radius: $property;
+    -ms-border-radius: $property;
+    -ms-border-radius: $property;
+    border-radius: $property;
+}
+
+@mixin box-shadow($property) {
+    -webkit-box-shadow: $property;
+    -moz-box-shadow: $property;
+    box-shadow: $property;
+}
+
+@mixin flex() {
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+}
+
+@mixin items-align($property) {
+    -webkit-box-align: $property;
+    -moz-box-align: $property;
+    -ms-flex-align: $property;
+    -webkit-align-items: $property;
+    align-items: $property;
+}
+
+@mixin justify-content($property) {
+    justify-content: $property;
+}
+
+@mixin transition($property) {
+    transition: $property;
+    -moz-transition: $property;
+    -webkit-transition: $property;
+    -o-transition: $property;
+}
+
+@mixin transform($property) {
+    -webkit-transform: $property;
+    -moz-transform: $property;
+    -ms-transform: $property;
+    -o-transform: $property;
+    transform: $property;
+}
+
+@mixin box-shadow($property) {
+    -webkit-box-shadow: $property;
+    -moz-box-shadow: $property;
+    box-shadow: $property;
+}

@@ -1817,6 +1817,23 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -1826,28 +1843,28 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   methods: {
-    listar: function listar() {
+    list: function list() {
       var _this = this;
 
       axios.get('/api/posts').then(function (response) {
         _this.posts = response.data;
       });
     },
-    apenas: function apenas(id) {
+    find: function find(id) {
       var _this2 = this;
 
       axios.get('/api/posts/' + id).then(function (response) {
         _this2.post = response.data;
 
-        _this2.abre_modal();
+        _this2.open_modal();
       });
     },
-    abre_modal: function abre_modal() {
+    open_modal: function open_modal() {
       this.modal = true;
     }
   },
   mounted: function mounted() {
-    this.listar();
+    this.list();
   }
 });
 
@@ -37393,29 +37410,37 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _c(
-      "div",
-      { staticClass: "row" },
-      _vm._l(_vm.posts, function(post) {
-        return _c("div", { staticClass: "col-md-3 item" }, [
-          _c("p", [_vm._v(_vm._s(post.title))]),
-          _vm._v(" "),
-          _c(
-            "a",
-            {
-              attrs: { href: "#" },
-              on: {
-                click: function($event) {
-                  _vm.apenas(post.id)
-                }
-              }
-            },
-            [_vm._v("detalhes")]
-          )
-        ])
-      }),
-      0
-    ),
+    _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col-md-9" }, [
+        _c(
+          "div",
+          { staticClass: "row" },
+          _vm._l(_vm.posts, function(post) {
+            return _c("div", { staticClass: "col-md-4 mb-4" }, [
+              _c("div", { staticClass: "item" }, [
+                _c("p", [_vm._v(_vm._s(post.title))]),
+                _vm._v(" "),
+                _c(
+                  "a",
+                  {
+                    attrs: { href: "#" },
+                    on: {
+                      click: function($event) {
+                        _vm.find(post.id)
+                      }
+                    }
+                  },
+                  [_vm._v("detalhes")]
+                )
+              ])
+            ])
+          }),
+          0
+        )
+      ]),
+      _vm._v(" "),
+      _vm._m(0)
+    ]),
     _vm._v(" "),
     _vm.modal
       ? _c("div", { staticClass: "post" }, [
@@ -37448,7 +37473,20 @@ var render = function() {
       : _vm._e()
   ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-md-3" }, [
+      _c("aside", [_c("h3", [_vm._v("Recentes")])]),
+      _vm._v(" "),
+      _c("aside", [_c("h3", [_vm._v("Tags")])]),
+      _vm._v(" "),
+      _c("aside", [_c("h3", [_vm._v("Top autores")])])
+    ])
+  }
+]
 render._withStripped = true
 
 
@@ -48981,8 +49019,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\Users\Administrador\projects\test\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\Users\Administrador\projects\test\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! E:\www\fullstack-test-laravel\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! E:\www\fullstack-test-laravel\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

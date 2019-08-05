@@ -1,9 +1,26 @@
 <template>
     <div>
         <div class="row">
-            <div v-for="post in posts" class="col-md-3 item">
-                <p>{{post.title}}</p>
-                <a href="#" @click="apenas(post.id)">detalhes</a>
+            <div class="col-md-9">
+                <div class="row">
+                    <div v-for="post in posts" class="col-md-4 mb-4">
+                        <div class="item">
+                            <p>{{post.title}}</p>
+                            <a href="#" @click="find(post.id)">detalhes</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <aside>
+                    <h3>Recentes</h3>
+                </aside>
+                <aside>
+                    <h3>Tags</h3>
+                </aside>
+                <aside>
+                    <h3>Top autores</h3>
+                </aside>
             </div>
         </div>
 
@@ -29,27 +46,27 @@
             }
         },
         methods: {
-            listar() {
+            list() {
 
                 axios.get('/api/posts').then(response => {
                     this.posts = response.data;
                 });
 
             },
-            apenas(id) {
+            find(id) {
 
                 axios.get('/api/posts/' + id).then(response => {
                     this.post = response.data;
-                    this.abre_modal()
+                    this.open_modal()
                 });
 
             },
-            abre_modal() {
+            open_modal() {
                 this.modal = true
             }
         },
         mounted() {
-            this.listar()
+            this.list()
         }
     }
 </script>
