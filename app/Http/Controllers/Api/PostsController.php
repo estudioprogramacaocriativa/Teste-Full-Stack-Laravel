@@ -2,43 +2,33 @@
 
 namespace App\Http\Controllers\Api;
 
-use Illuminate\Http\Request;
+use App\Http\Resources\PostResource;
 use App\Http\Controllers\Controller;
+use App\TagPost;
 use App\Post;
 
 class PostsController extends Controller
 {
-    public function listar()
+    public function list()
     {
         $posts = Post::all();
-
         $collection = collect();
-        foreach ($posts as $post) {
 
-            $tags = \DB::table('tag_post')->where('post_id', '=', $post->id)
-                ->join('tags', 'tag_post.tag_id', '=', 'tags.id')
-                ->get();
-
+        foreach ($posts as $post):
+            $tags = TagPost::where('post_id', $post->id)->join('tags', 'tag_post.tag_id', '=', 'tags.id')->get();
             $post->tags = $tags->pluck('name');
             $collection->push($post);
-        }
+        endforeach;
 
-        return $collection;
+        return PostResource::collection($collection);
     }
 
-    public function apenas($id)
+    public function show($name)
     {
-        $post = \DB::table('posts')
-            ->where('posts.id', '=', $id)
-            ->join('tag_post', 'post_id', '=', 'posts.id')
-            ->first();
-
-        $tags = \DB::table('tag_post')->where('post_id', '=', $post->id)
-            ->join('tags', 'tag_post.tag_id', '=', 'tags.id')
-            ->get();
-
+        $post = Post::where('friendly_url', $name)->first();
+        $tags = $post->tags;
         $post->tags = $tags->pluck('name');
 
-        return response()->json($post);
+        return new PostResource($post);
     }
 }

@@ -16,14 +16,14 @@
     <body>
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark navbar-laravel fixed-top">
             <div class="container">
-                <a class="navbar-brand" href="#"><img src="{{ asset('images/logo.png') }}" alt="{{ config('app.name') }}"></a>
+                <a class="navbar-brand" href="{{ route('site.home') }}"><img src="{{ asset('images/logo.png') }}" alt="{{ config('app.name') }}"></a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                     <i class="fas fa-bars"></i>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav ml-auto">
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Blog</a>
+                            <a class="nav-link" href="{{ route('site.home') }}">Blog</a>
                         </li>
                         @auth
                             <li class="nav-item">
@@ -48,15 +48,15 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div id="app">
-                        <posts style="margin-top: 140px;"></posts>
+                        @yield('content')
                     </div>
                 </div>
             </div>
         </div>
 
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" defer></script>
+        <script src="//stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" defer></script>
+        <script src="//kit.fontawesome.com/e379d6bd01.js"></script>
         <script src="{{ asset('js/app.js') }}" defer></script>
-        <script src="https://kit.fontawesome.com/e379d6bd01.js"></script>
     </body>
 </html>
 
