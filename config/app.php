@@ -224,6 +224,7 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         'Functions' => App\Helpers\Functions::class,
+        'CustomFile' => App\Helpers\FileManager::class,
     ],
 
 ];

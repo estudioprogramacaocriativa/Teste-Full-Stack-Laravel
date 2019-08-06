@@ -6,7 +6,7 @@
                         {{ strlen($post->title) > 50 ? substr_replace($post->title, '...', 50) : $post->title }}
                     </a>
                 </td>
-                <td></td>
+                <td><i style="font-size: .876em; color: #848484;">{{ $post->author->name ?? 'Indefinido' }}</i></td>
                 <td>
                     <p class="status {{ Functions::getStatus($post->status, [0 => 'draft', 1 => 'published']) }}">
                         {{ Functions::getStatus($post->status, [0 => 'Rascunho', 1 => 'Publicado']) }}
@@ -14,7 +14,7 @@
                 </td>
                 <td class="btn-actions">
                     <a class="btn btn-outline-info mr-3" href="{{ url('posts/edit/' . $post->id) }}"><i class="fas fa-edit"></i></a>
-                    <a class="btn btn-outline-danger" href="{{ url('posts/destroy/' . $post->id) }}"><i class="fas fa-trash"></i></a>
+                    <a class="btn btn-outline-danger j-trash" data-id="{{ $post->id }}" data-controller="App\Http\Controllers\PostsController" data-route="{{ route('post.destroy', $post->id) }}" href="{{ url('posts/destroy/' . $post->id) }}"><i class="fas fa-trash"></i></a>
                 </td>
             </tr>
         @endforeach

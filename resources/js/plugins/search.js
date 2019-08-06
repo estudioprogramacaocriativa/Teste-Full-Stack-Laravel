@@ -1,4 +1,5 @@
 import api from './../services/axios'
+import trash from './delete'
 
 const search = () => {
     let reload_data = document.querySelector('.reload-data')
@@ -19,7 +20,10 @@ const search = () => {
                 container_hide_target.style.display = 'none'
 
                 api.get(`posts/search/${value}`)
-                    .then((resp) => reload_data.innerHTML = resp.data.data)
+                    .then((resp) => {
+                        reload_data.innerHTML = resp.data.data
+                        trash()
+                    })
                     .then(() => {
                         loading_target.style.display = 'none'
                         container_hide_target.style.display = 'block'

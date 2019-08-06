@@ -6,21 +6,24 @@ use Illuminate\Database\Eloquent\Model;
 
 class Post extends Model
 {
-    protected $guarded = [];
+    protected $fillable = [
+        'title',
+        'body',
+        'user_id',
+        'image',
+        'status',
+        'highlight'
+    ];
 
     public function has_tag($tag_id)
     {
-        $rows = \DB::table('tag_post')->where('tag_id', '=', $tag_id)->where('post_id', '=', $this->id)->get();
+        $rows = TagPost::where([['tag_id', $tag_id], ['post_id', $this->id]])->get();
 
-        if (count($rows) > 0) {
-            return true;
-        } else {
-            return false;
-        }
+        return count($rows) > 0 ? true : false;
     }
 
     public function author()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'user_id');
     }
 }

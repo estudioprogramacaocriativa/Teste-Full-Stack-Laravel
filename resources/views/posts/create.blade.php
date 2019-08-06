@@ -1,5 +1,5 @@
 @extends('layouts.app')
-
+@section('title', 'Adicionando novo post')
 @section('content')
     <div class="container">
         <nav aria-label="breadcrumb">
@@ -15,8 +15,7 @@
                 <p>Adicione um novo post ao blog do site</p>
             </header>
 
-            <form action="{{ url('posts/store') }}" method="post">
-                {{ csrf_field() }}
+            <form action="{{ url('posts/store') }}" class="j-submit" id="form-create-post" method="post">
                 @include('posts.partials.form')
                 <div class="form-btn-actions d-flex align-items-center justify-content-between">
                     <a href="{{ route('post.index') }}">Voltar para lista</a>

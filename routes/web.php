@@ -6,16 +6,18 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('home', ['uses' => 'HomeController@index', 'as' => 'home']);
+Route::group(['middleware' => 'auth'], function () {
+    Route::get('home', ['uses' => 'HomeController@index', 'as' => 'home']);
 
-Route::group(['prefix' => 'posts', 'middleware' => 'auth'], function () {
-    Route::get('', ['uses' => 'PostsController@index', 'as' => 'post.index']);
-    Route::get('create', ['uses' => 'PostsController@criar', 'as' => 'post.create']);
-    Route::post('store', ['uses' => 'PostsController@salvar', 'as' => 'post.store']);
-    Route::get('edit/{id}', ['uses' => 'PostsController@editar', 'as' => 'post.edit']);
-    Route::post('update/{id}', ['uses' => 'PostsController@atualizar', 'as' => 'post.update']);
-    Route::get('destroy/{id}', ['uses' => 'PostsController@deletar', 'as' => 'post.destroy']);
+    Route::group(['prefix' => 'posts'], function () {
+        Route::get('', ['uses' => 'PostsController@index', 'as' => 'post.index']);
+        Route::get('create', ['uses' => 'PostsController@create', 'as' => 'post.create']);
+        Route::post('store', ['uses' => 'PostsController@store', 'as' => 'post.store']);
+        Route::get('edit/{id}', ['uses' => 'PostsController@edit', 'as' => 'post.edit']);
+        Route::post('update/{id}', ['uses' => 'PostsController@update', 'as' => 'post.update']);
+        Route::post('destroy/{id}', ['uses' => 'PostsController@destroy', 'as' => 'post.destroy']);
 
-    Route::get('filter/{status}', ['uses' => 'PostsController@filtered', 'as' => 'post.filtered']);
-    Route::get('search/{word?}', ['uses' => 'PostsController@search', 'as' => 'post.search']);
+        Route::get('filter/{status}', ['uses' => 'PostsController@filtered', 'as' => 'post.filtered']);
+        Route::get('search/{word?}', ['uses' => 'PostsController@search', 'as' => 'post.search']);
+    });
 });

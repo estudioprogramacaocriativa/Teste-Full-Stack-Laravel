@@ -1,4 +1,5 @@
 import api from './../services/axios'
+import trash from './delete'
 
 const filters = () => {
     let status
@@ -20,7 +21,10 @@ const filters = () => {
                     toggleClass(item, 'add', 'active')
 
                     api.get(`posts/filter/${status}`)
-                        .then((resp) => reload_data.innerHTML = resp.data.data)
+                        .then((resp) => {
+                            reload_data.innerHTML = resp.data.data
+                            trash()
+                        })
                         .then(() => {
                             loading_target.style.display = 'none'
                             container_hide_target.style.display = 'block'
