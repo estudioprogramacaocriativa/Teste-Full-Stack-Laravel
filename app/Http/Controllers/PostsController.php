@@ -38,9 +38,16 @@ class PostsController extends Controller
         return response()->json(['data' => $this->getTableBody($posts, $status)]);
     }
 
-    public function search($word)
+    public function search($word = null)
     {
-        dd($word);
+        sleep(1);
+        $posts = Post::paginate(10);
+
+        if(!empty($word)):
+            $posts = Post::where('title', 'LIKE', '%' . $word . '%')->paginate(10);
+        endif;
+
+        return response()->json(['data' => $this->getTableBody($posts, null, $word)]);
     }
 
     public function criar()
@@ -120,11 +127,13 @@ class PostsController extends Controller
      * Get the HTML list of post resources
      *
      * @param $posts
+     * @param null $status
+     * @param null $word
      * @return string
      */
-    private function getTableBody($posts, $status = null)
+    private function getTableBody($posts, $status = null, $word = null)
     {
-        $view = \View::make('posts.partials.table-body', compact('posts', 'status'));
+        $view = \View::make('posts.partials.table-body', compact('posts', 'status', 'word'));
         $render = (string)$view->render();
 
         return $render;

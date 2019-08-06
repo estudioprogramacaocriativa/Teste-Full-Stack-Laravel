@@ -7,7 +7,11 @@
                     </a>
                 </td>
                 <td></td>
-                <td></td>
+                <td>
+                    <p class="status {{ Functions::getStatus($post->status, [0 => 'draft', 1 => 'published']) }}">
+                        {{ Functions::getStatus($post->status, [0 => 'Rascunho', 1 => 'Publicado']) }}
+                    </p>
+                </td>
                 <td class="btn-actions">
                     <a class="btn btn-outline-info mr-3" href="{{ url('posts/edit/' . $post->id) }}"><i class="fas fa-edit"></i></a>
                     <a class="btn btn-outline-danger" href="{{ url('posts/destroy/' . $post->id) }}"><i class="fas fa-trash"></i></a>
@@ -26,8 +30,8 @@
             <p class="icon"><i class="far fa-frown-open"></i></p>
             @if(!empty($status))
                 <p>Não encontramos publicações marcadas como <b>{{ Functions::getStatus($status, ['draft' => 'rascunho', 'published' => 'publicados']) }}</b>.</p>
-            @elseif(!empty($search))
-                <p>Não encontramos publicações para a palavra chave <b>{{ $search }}</b>.</p>
+            @elseif(!empty($word))
+                <p>Não encontramos publicações para a palavra chave <b>{{ $word }}</b>.</p>
             @else
                 <p>Não existem publicações até o momento!</p>
             @endif

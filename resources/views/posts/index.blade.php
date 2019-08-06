@@ -19,14 +19,14 @@
                     <nav>
                         <ul class="d-flex align-items-center">
                             <li data-filter="all" class="active">Todos</li>
-                            <li data-filter="published">Publicadas</li>
+                            <li data-filter="published">Publicados</li>
                             <li data-filter="draft">Rascunho</li>
                         </ul>
                     </nav>
                 </div>
                 <div class="group d-flex justify-content-between align-items-center">
                     <a class="btn btn-outline-info mr-4" href="{{ url('posts/create') }}">Adicionar post</a>
-                    <form action="">
+                    <form class="form-search">
                         <input type="search" class="form-control" name="search" placeholder="Digite algo...">
                     </form>
                 </div>

@@ -17,5 +17,5 @@ Route::group(['prefix' => 'posts', 'middleware' => 'auth'], function () {
     Route::get('destroy/{id}', ['uses' => 'PostsController@deletar', 'as' => 'post.destroy']);
 
     Route::get('filter/{status}', ['uses' => 'PostsController@filtered', 'as' => 'post.filtered']);
-    Route::get('search/{status}', ['uses' => 'PostsController@filtered', 'as' => 'post.filtered']);
+    Route::get('search/{word?}', ['uses' => 'PostsController@search', 'as' => 'post.search']);
 });

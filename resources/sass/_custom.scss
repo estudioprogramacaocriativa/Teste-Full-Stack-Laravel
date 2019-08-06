@@ -270,6 +270,38 @@ img {
         &:nth-of-type(odd) {
           background-color: #f2f2f2;
         }
+
+        a {
+          transition: .36s ease-in-out;
+          -moz-transition: .36s ease-in-out;
+          -webkit-transition: .36s ease-in-out;
+          -ms-transition: .36s ease-in-out;
+
+          &:hover {
+            color: $green-hover;
+            text-decoration: none;
+          }
+        }
+
+        .status {
+          padding: 2px 14px;
+          border-radius: 25px;
+          background: #ccc;
+          color: #212121;
+          font-size: .8em;
+          display: inline-block;
+          width: auto;
+
+          &.draft {
+            background: #f6993f;
+            color: #fff;
+          }
+
+          &.published {
+            background: #0cc2aa;
+            color: #fff;
+          }
+        }
       }
     }
   }

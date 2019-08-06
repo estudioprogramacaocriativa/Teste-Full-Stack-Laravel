@@ -1,44 +1,35 @@
 import api from './../services/axios'
 
-const filters = () => {
-    let status
+const search = () => {
     let reload_data = document.querySelector('.reload-data')
-    let el = document.querySelectorAll('.filters nav li')
-    let el_selector = Array.from(el)
+    let el_selector = document.querySelector('.form-search > input')
     let loading_target = document.querySelector('.loading')
     let container_hide_target = document.querySelector('.hide-when-loading')
 
     if(el_selector) {
-        el_selector.forEach((item) => {
-            item.addEventListener('click', () => {
-                if (!item.classList.contains('active')){
-                    el_selector.filter(el => toggleClass(el, 'remove', 'active'))
-                    loading_target.style.display = 'block'
-                    container_hide_target.style.display = 'none'
-                    status = item.dataset.filter
+        let timeout = null;
 
-                    toggleClass(item, 'add', 'active')
+        el_selector.addEventListener('keyup', (el) => {
+            let value = el_selector.value
 
-                    api.get(`posts/filter/${status}`)
-                        .then((resp) => reload_data.innerHTML = resp.data.data)
-                        .then(() => {
-                            loading_target.style.display = 'none'
-                            container_hide_target.style.display = 'block'
-                        })
-                        .catch(() => {})
-                }
-            })
+            clearTimeout(timeout)
+
+            timeout = setTimeout(function () {
+                loading_target.style.display = 'block'
+                container_hide_target.style.display = 'none'
+
+                api.get(`posts/search/${value}`)
+                    .then((resp) => reload_data.innerHTML = resp.data.data)
+                    .then(() => {
+                        loading_target.style.display = 'none'
+                        container_hide_target.style.display = 'block'
+                    })
+                    .catch(() => {})
+            }, 500)
         })
     }
 }
 
-const toggleClass = (el, action, class_) => {
-    if(el !== undefined) {
-        el.classList[action](class_)
-    }
-}
-
 export default {
-    filters,
-    toggleClass
+    search
 }
